@@ -3,7 +3,7 @@
 
 import React from "react"
 
-export default class ReactMailForm extends React.Component{
+class ReactMailForm extends React.Component{
     constructor(props){
         super(props)
     }
@@ -12,3 +12,5 @@ export default class ReactMailForm extends React.Component{
         return <div>ALOHA {this.props.formName}</div>
     }
 }
+
+module.exports = ReactMailForm
