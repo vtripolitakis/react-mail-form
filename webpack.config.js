@@ -9,7 +9,7 @@ const config = {
     },
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "[name].js"
+        filename: "react-mail-form.js"
     },
     devtool: "source-map",
     mode: "development",
