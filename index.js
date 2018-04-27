@@ -1,1 +1,1 @@
-module.export ("./dist/react-mail-form")
+module.export ("./dist/bundle")
