@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "Simple, configurable React-based mail form",
   "readme": "",
-  "main": "",
+  "main": "dist/bundle.js",
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "react",
     "mail",
