@@ -5,7 +5,7 @@
   "readme": "",
   "main": "lib/bundle.js",
   "files": [
-    "dist"
+    "lib"
   ],
   "keywords": [
     "react",

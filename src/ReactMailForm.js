@@ -2,7 +2,7 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
 
 import React from "react"
-import {axios} from "axios"
+import axios from "axios"
 
 export default class ReactMailForm extends React.Component{
     constructor(props){
