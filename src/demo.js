@@ -2,5 +2,7 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
 
 import React from "react"
+import {render} from "react-dom"
 import ReactMailForm from "./ReactMailForm"
-console.log("hello world")
+
+render(<ReactMailForm formConfigurationURL="example/config.json" />, document.getElementById("root"))

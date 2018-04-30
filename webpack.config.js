@@ -5,7 +5,7 @@ const path = require("path")
 
 const config = {
     entry: {
-        all: "./src/index.js"
+        all: "./src/demo.js"
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -21,6 +21,7 @@ const config = {
                 use: {
                     loader: "babel-loader",
                     options: {
+                        babelrc: false,
                         presets: ["react","env"]
                     }
                 }
