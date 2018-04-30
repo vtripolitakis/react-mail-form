@@ -1,3 +1,16 @@
 {
-    "formName":"testForm"
+    "formName":"testForm",
+    "mailto":"info@relux.com",
+    "formTitle": "this is the form title",
+    "footerText": "this is the footer text",
+    "content":{
+        "name":{
+            "type":"text",
+            "maxwidth": 20
+        },
+        "surname":{
+            "type":"text",
+            "maxwidth": 30
+        }
+    }
 }

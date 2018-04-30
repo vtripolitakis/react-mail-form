@@ -3,6 +3,10 @@
 
 import React from "react"
 import axios from "axios"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import ButtonList from "./components/ButtonList"
+import MainFormContent from "./components/MainFormContent"
 
 export default class ReactMailForm extends React.Component{
     constructor(props){
@@ -33,7 +37,13 @@ export default class ReactMailForm extends React.Component{
     render(){
         let dataLoaded = this.state.dataLoaded
         if (dataLoaded){
-            return <div>loaded</div>
+            const {formTitle, footerText, content} = this.state.formConfiguration            
+            return <div>
+                <Header formTitle={formTitle}/>
+                <MainFormContent content={content}/>
+                <ButtonList />
+                <Footer footerText={footerText} />                
+            </div>
         }else{
             return <div>loading</div>
         }
