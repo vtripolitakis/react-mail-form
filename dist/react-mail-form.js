@@ -21047,10 +21047,37 @@ var ReactMailForm = function (_React$Component) {
             dataLoaded: false,
             formConfiguration: null
         };
+        _this._changeHandler = _this._changeHandler.bind(_this);
         return _this;
     }
 
     _createClass(ReactMailForm, [{
+        key: "_changeHandler",
+        value: function _changeHandler(i, type, e) {
+            console.log(i, type, e);
+            this.setState(function (previousState) {
+                var newState = Object.assign({}, previousState);
+                switch (type) {
+                    case "text":
+                        newState.content[i] = e;
+                        break;
+                    case "textarea":
+                        newState.content[i] = e;
+                        break;
+                    case "checkbox_array":
+                        //check if it exists and delete otherwise add
+                        var idx = newState.content[i].indexOf(e);
+                        if (idx > -1) {
+                            newState.content[i].splice(idx, 1);
+                        } else {
+                            newState.content[i].push(e);
+                        }
+                }
+
+                return newState;
+            });
+        }
+    }, {
         key: "componentDidMount",
         value: function componentDidMount() {
             console.log("component mounting - receiving configuration");
@@ -21058,6 +21085,29 @@ var ReactMailForm = function (_React$Component) {
             var that = this;
             _axios2.default.get(this.props.formConfigurationURL).then(function (response) {
                 console.log("SUCCESS", response);
+                // get all fields and add their default data
+                var content = {};
+                Object.keys(response.data.content).map(function (c) {
+                    if (typeof response.data.content[c].default !== "undefined") {
+                        content[c] = response.data.content[c].default;
+                    } else {
+                        //ToDo: check type and update accordingly
+                        switch (response.data.content[c].type) {
+                            case "text":
+                                content[c] = "";
+                                break;
+                            case "textarea":
+                                content[c] = "";
+                                break;
+                            case "checkbox_array":
+                                //check if it exists and delete otherwise add
+                                content[c] = [];
+                        }
+                    }
+                });
+                that.setState(function () {
+                    return { content: content };
+                });
                 that.setState(function () {
                     return { dataLoaded: true,
                         formConfiguration: response.data };
@@ -21080,7 +21130,7 @@ var ReactMailForm = function (_React$Component) {
                     "div",
                     null,
                     _react2.default.createElement(_Header2.default, { formTitle: formTitle }),
-                    _react2.default.createElement(_MainFormContent2.default, { content: content }),
+                    _react2.default.createElement(_MainFormContent2.default, { content: content, formState: this.state.content, changeHandler: this._changeHandler }),
                     _react2.default.createElement(_ButtonList2.default, null),
                     _react2.default.createElement(_Footer2.default, { footerText: footerText })
                 );
@@ -21145,7 +21195,17 @@ var ButtonList = function (_React$Component) {
             return _react2.default.createElement(
                 "div",
                 null,
-                "buttonlist"
+                _react2.default.createElement(
+                    "button",
+                    { type: "button", className: "btn btn-default" },
+                    "Submit"
+                ),
+                "\xA0",
+                _react2.default.createElement(
+                    "button",
+                    { type: "button", className: "btn btn-cancel" },
+                    "Cancel"
+                )
             );
         }
     }]);
@@ -21322,13 +21382,69 @@ var MainFormContent = function (_React$Component) {
 
             var formData = null;
             formData = Object.keys(this.props.content).map(function (i) {
-                console.log(_this2.props.content[i]["type"], _this2.props.content[i]["maxwidth"]);
+                var objectData = _this2.props.content[i];
+                var outData = null;
+                switch (objectData["type"]) {
+                    case "checkbox_array":
+                        var checkbox_array_data = objectData.options.map(function (j) {
+                            var isChecked = false;
+                            if (_this2.props.formState[i].indexOf(j) > -1) {
+                                isChecked = true;
+                            }
+                            return _react2.default.createElement(
+                                "div",
+                                { key: j, className: "col-md-4" },
+                                _react2.default.createElement("input", { type: "checkbox", name: i + "[]", value: j,
+                                    defaultChecked: isChecked,
+                                    onChange: function onChange(e) {
+                                        _this2.props.changeHandler(i, "checkbox_array", e.target.value);
+                                    } }),
+                                " ",
+                                j
+                            );
+                        });
+                        outData = _react2.default.createElement(
+                            "div",
+                            { id: i },
+                            checkbox_array_data
+                        );
+                        break;
+                    case "textarea":
+                        outData = _react2.default.createElement(
+                            "div",
+                            { id: i },
+                            _react2.default.createElement("textarea", { rows: objectData["rows"], cols: objectData["cols"],
+                                defaultValue: _this2.props.formState[i],
+                                onChange: function onChange(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    _this2.props.changeHandler(i, "textarea", e.target.value);
+                                } })
+                        );
+                        break;
+                    case "text":
+                        outData = _react2.default.createElement(
+                            "div",
+                            { id: i },
+                            _react2.default.createElement("input", { type: objectData["type"], width: objectData["maxwidth"],
+                                defaultValue: _this2.props.formState[i],
+                                onChange: function onChange(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    _this2.props.changeHandler(i, "text", e.target.value);
+                                } })
+                        );
+                        break;
+                }
                 return _react2.default.createElement(
                     "div",
-                    { key: i },
-                    i,
-                    ": ",
-                    _react2.default.createElement("input", { type: _this2.props.content[i]["type"], width: _this2.props.content[i]["maxwidth"] })
+                    { key: i, className: "form-group " + ("col-md-" + objectData["btcolumns"]) },
+                    _react2.default.createElement(
+                        "label",
+                        { htmlFor: i },
+                        i
+                    ),
+                    outData
                 );
             });
             return _react2.default.createElement(

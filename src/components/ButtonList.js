@@ -9,7 +9,10 @@ export default class ButtonList extends React.Component{
     }
 
     render(){
-        return <div>buttonlist</div>
+        return <div>
+            <button type="button" className="btn btn-default">Submit</button>&nbsp;
+            <button type="button" className="btn btn-cancel">Cancel</button>
+        </div>
     }
 }
 
