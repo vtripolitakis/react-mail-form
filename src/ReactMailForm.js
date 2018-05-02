@@ -20,7 +20,6 @@ export default class ReactMailForm extends React.Component{
     }
     
     _changeHandler(i,type, e){
-        console.log(i,type, e)
         this.setState((previousState)=>{
             let newState = Object.assign({},previousState)
             switch(type){
@@ -47,28 +46,30 @@ export default class ReactMailForm extends React.Component{
         /* start axios request to submit form data */
         e.preventDefault()
         e.stopPropagation()
-        axios.post(
-            this.state.formConfiguration.endpoint, 
-            this.state.content, 
-            {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            .then((response)=>{
-                console.log(response.data)
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
+
+        // perform some basic validation
+        if (document.getElementById(this.state.formConfiguration.formID).reportValidity()){
+            axios.post(
+                this.state.formConfiguration.endpoint, 
+                this.state.content, 
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then((response)=>{
+                    console.log(response.data)
+                })
+                .catch((error)=>{
+                    console.log(error)
+                })
+        }
     }
 
     componentDidMount(){
-        console.log("component mounting - receiving configuration")
         /* start axios request to load configuration */
         axios.get(this.props.formConfigurationURL)
             .then((response) => {
-                console.log("SUCCESS", response)
                 // get all fields and add their default data
                 let content = {}
                 Object.keys(response.data.content).map(c=>{
@@ -108,7 +109,7 @@ export default class ReactMailForm extends React.Component{
             const {formTitle, footerText, content} = this.state.formConfiguration            
             return <div>
                 <Header formTitle={formTitle}/>
-                <MainFormContent content={content} formState={this.state.content} changeHandler={this._changeHandler}/>
+                <MainFormContent content={content} formState={this.state.content} formID={this.state.formConfiguration.formID} changeHandler={this._changeHandler}/>
                 <ButtonList submitHandler={this._submitHandler}/>
                 <Footer footerText={footerText} />                
             </div>

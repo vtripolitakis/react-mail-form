@@ -1,6 +1,7 @@
 
 {
     "formName":"testForm",
+    "formID":"formID",
     "mailto":"info@endpoint.com",
     "endpoint":"https://jsonplaceholder.typicode.com/posts",
     "formTitle": "this is the form title",

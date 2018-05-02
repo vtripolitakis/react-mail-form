@@ -21055,7 +21055,6 @@ var ReactMailForm = function (_React$Component) {
     _createClass(ReactMailForm, [{
         key: "_changeHandler",
         value: function _changeHandler(i, type, e) {
-            console.log(i, type, e);
             this.setState(function (previousState) {
                 var newState = Object.assign({}, previousState);
                 switch (type) {
@@ -21083,25 +21082,27 @@ var ReactMailForm = function (_React$Component) {
             /* start axios request to submit form data */
             e.preventDefault();
             e.stopPropagation();
-            _axios2.default.post(this.state.formConfiguration.endpoint, this.state.content, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(function (response) {
-                console.log(response.data);
-            }).catch(function (error) {
-                console.log(error);
-            });
+
+            // perform some basic validation
+            if (document.getElementById(this.state.formConfiguration.formID).reportValidity()) {
+                _axios2.default.post(this.state.formConfiguration.endpoint, this.state.content, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(function (response) {
+                    console.log(response.data);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
         }
     }, {
         key: "componentDidMount",
         value: function componentDidMount() {
             var _this2 = this;
 
-            console.log("component mounting - receiving configuration");
             /* start axios request to load configuration */
             _axios2.default.get(this.props.formConfigurationURL).then(function (response) {
-                console.log("SUCCESS", response);
                 // get all fields and add their default data
                 var content = {};
                 Object.keys(response.data.content).map(function (c) {
@@ -21147,7 +21148,7 @@ var ReactMailForm = function (_React$Component) {
                     "div",
                     null,
                     _react2.default.createElement(_Header2.default, { formTitle: formTitle }),
-                    _react2.default.createElement(_MainFormContent2.default, { content: content, formState: this.state.content, changeHandler: this._changeHandler }),
+                    _react2.default.createElement(_MainFormContent2.default, { content: content, formState: this.state.content, formID: this.state.formConfiguration.formID, changeHandler: this._changeHandler }),
                     _react2.default.createElement(_ButtonList2.default, { submitHandler: this._submitHandler }),
                     _react2.default.createElement(_Footer2.default, { footerText: footerText })
                 );
@@ -21400,6 +21401,7 @@ var MainFormContent = function (_React$Component) {
             var formData = null;
             formData = Object.keys(this.props.content).map(function (i) {
                 var objectData = _this2.props.content[i];
+                var isRequired = objectData["required"];
                 var outData = null;
                 switch (objectData["type"]) {
                     case "checkbox_array":
@@ -21436,7 +21438,7 @@ var MainFormContent = function (_React$Component) {
                                     e.preventDefault();
                                     e.stopPropagation();
                                     _this2.props.changeHandler(i, "textarea", e.target.value);
-                                } })
+                                }, required: isRequired })
                         );
                         break;
                     case "text":
@@ -21449,7 +21451,7 @@ var MainFormContent = function (_React$Component) {
                                     e.preventDefault();
                                     e.stopPropagation();
                                     _this2.props.changeHandler(i, "text", e.target.value);
-                                } })
+                                }, required: isRequired })
                         );
                         break;
                 }
@@ -21459,7 +21461,9 @@ var MainFormContent = function (_React$Component) {
                     _react2.default.createElement(
                         "label",
                         { htmlFor: i },
-                        i
+                        i,
+                        " ",
+                        isRequired ? "*" : ""
                     ),
                     outData
                 );
@@ -21469,7 +21473,7 @@ var MainFormContent = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                     "form",
-                    null,
+                    { id: this.props.formID },
                     formData
                 )
             );

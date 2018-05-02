@@ -11,7 +11,8 @@ export default class MainFormContent extends React.Component{
     render(){
         let formData = null
         formData = Object.keys(this.props.content).map(i=>{
-            let objectData = this.props.content[i]
+            const objectData = this.props.content[i]
+            const isRequired = objectData["required"]
             let outData = null
             switch(objectData["type"]){
             case "checkbox_array":
@@ -34,7 +35,7 @@ export default class MainFormContent extends React.Component{
                     onChange={e=>{
                         e.preventDefault()
                         e.stopPropagation()
-                        this.props.changeHandler(i,"textarea", e.target.value)}} />
+                        this.props.changeHandler(i,"textarea", e.target.value)}} required={isRequired} />
                 </div> 
                 break
             case "text":
@@ -43,17 +44,17 @@ export default class MainFormContent extends React.Component{
                     onChange={e=>{
                         e.preventDefault()
                         e.stopPropagation()
-                        this.props.changeHandler(i,"text", e.target.value)}} />
+                        this.props.changeHandler(i,"text", e.target.value)}} required={isRequired} />
                 </div>                
                 break
             }
             return <div key={i} className={"form-group " + `col-md-${objectData["btcolumns"]}`}>
-                <label htmlFor={i}>{i}</label>
+                <label htmlFor={i}>{i} {(isRequired)?"*":""}</label>
                 {outData}
             </div>
         })
         return <div>
-            <form>
+            <form id={this.props.formID}>
                 {formData}
             </form>
         </div>
