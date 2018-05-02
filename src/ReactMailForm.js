@@ -63,6 +63,17 @@ export default class ReactMailForm extends React.Component{
                 .catch((error)=>{
                     console.log(error)
                 })
+        }else{
+            document.querySelectorAll(`#${this.state.formConfiguration.formID} :invalid`)
+                .forEach((node)=>{
+                    node.classList.add("invalidInputElement")
+                })
+            window.setTimeout(()=>{
+                document.querySelectorAll(`#${this.state.formConfiguration.formID} :invalid`)
+                    .forEach((node)=>{
+                        node.classList.remove("invalidInputElement")
+                    })
+            },1000)    
         }
     }
 
