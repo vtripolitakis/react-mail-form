@@ -2,20 +2,20 @@
 {
     "formName":"testForm",
     "formID":"formID",
-    "mailto":"info@endpoint.com",
     "endpoint":"https://jsonplaceholder.typicode.com/posts",
     "formTitle": "this is the form title",
     "footerText": "this is the footer text",
     "content":{
         "contact_reason":{
             "type":"checkbox_array",
-            "options":["Price list",
-                        "Sampling",
-                        "General",
-                        "Catalog",
-                        "Source of Supply",
-                        "Sales quote",
-                        "Delivery time","Personal Consultation"],
+            "options":["Option1",
+                        "Option2",
+                        "Option3",
+                        "Option4",
+                        "Option5",
+                        "Option6",
+                        "Option7",
+                        "Option8"],
             "btcolumns":12,
             "default":["General", "Personal Consultation"],
             "required": true
