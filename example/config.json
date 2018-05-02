@@ -2,7 +2,7 @@
 {
     "formName":"testForm",
     "mailto":"info@endpoint.com",
-    "endpoint":"http://eu.httpbin.org/",
+    "endpoint":"https://jsonplaceholder.typicode.com/posts",
     "formTitle": "this is the form title",
     "footerText": "this is the footer text",
     "content":{

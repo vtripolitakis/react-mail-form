@@ -21048,6 +21048,7 @@ var ReactMailForm = function (_React$Component) {
             formConfiguration: null
         };
         _this._changeHandler = _this._changeHandler.bind(_this);
+        _this._submitHandler = _this._submitHandler.bind(_this);
         return _this;
     }
 
@@ -21073,16 +21074,32 @@ var ReactMailForm = function (_React$Component) {
                             newState.content[i].push(e);
                         }
                 }
-
                 return newState;
+            });
+        }
+    }, {
+        key: "_submitHandler",
+        value: function _submitHandler(e) {
+            /* start axios request to submit form data */
+            e.preventDefault();
+            e.stopPropagation();
+            _axios2.default.post(this.state.formConfiguration.endpoint, this.state.content, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.log(error);
             });
         }
     }, {
         key: "componentDidMount",
         value: function componentDidMount() {
+            var _this2 = this;
+
             console.log("component mounting - receiving configuration");
             /* start axios request to load configuration */
-            var that = this;
             _axios2.default.get(this.props.formConfigurationURL).then(function (response) {
                 console.log("SUCCESS", response);
                 // get all fields and add their default data
@@ -21105,10 +21122,10 @@ var ReactMailForm = function (_React$Component) {
                         }
                     }
                 });
-                that.setState(function () {
+                _this2.setState(function () {
                     return { content: content };
                 });
-                that.setState(function () {
+                _this2.setState(function () {
                     return { dataLoaded: true,
                         formConfiguration: response.data };
                 });
@@ -21131,7 +21148,7 @@ var ReactMailForm = function (_React$Component) {
                     null,
                     _react2.default.createElement(_Header2.default, { formTitle: formTitle }),
                     _react2.default.createElement(_MainFormContent2.default, { content: content, formState: this.state.content, changeHandler: this._changeHandler }),
-                    _react2.default.createElement(_ButtonList2.default, null),
+                    _react2.default.createElement(_ButtonList2.default, { submitHandler: this._submitHandler }),
                     _react2.default.createElement(_Footer2.default, { footerText: footerText })
                 );
             } else {
@@ -21197,10 +21214,10 @@ var ButtonList = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                     "button",
-                    { type: "button", className: "btn btn-default" },
+                    { type: "button", className: "btn btn-default", onClick: this.props.submitHandler },
                     "Submit"
                 ),
-                "\xA0",
+                " \xA0",
                 _react2.default.createElement(
                     "button",
                     { type: "button", className: "btn btn-cancel" },

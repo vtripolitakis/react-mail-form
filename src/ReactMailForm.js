@@ -16,6 +16,7 @@ export default class ReactMailForm extends React.Component{
             formConfiguration: null
         }
         this._changeHandler = this._changeHandler.bind(this)
+        this._submitHandler = this._submitHandler.bind(this)
     }
     
     _changeHandler(i,type, e){
@@ -38,18 +39,35 @@ export default class ReactMailForm extends React.Component{
                     newState.content[i].push(e)    
                 } 
             }
-
-            
             return newState
         })
+    }
+
+    _submitHandler(e){
+        /* start axios request to submit form data */
+        e.preventDefault()
+        e.stopPropagation()
+        axios.post(
+            this.state.formConfiguration.endpoint, 
+            this.state.content, 
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then((response)=>{
+                console.log(response.data)
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
     }
 
     componentDidMount(){
         console.log("component mounting - receiving configuration")
         /* start axios request to load configuration */
-        let that = this
         axios.get(this.props.formConfigurationURL)
-            .then(function (response) {
+            .then((response) => {
                 console.log("SUCCESS", response)
                 // get all fields and add their default data
                 let content = {}
@@ -71,10 +89,10 @@ export default class ReactMailForm extends React.Component{
                         }                        
                     }
                 })
-                that.setState(()=>{
+                this.setState(()=>{
                     return {content:content}
                 })
-                that.setState(()=>{
+                this.setState(()=>{
                     return {dataLoaded: true,
                         formConfiguration: response.data}
                 })                
@@ -91,7 +109,7 @@ export default class ReactMailForm extends React.Component{
             return <div>
                 <Header formTitle={formTitle}/>
                 <MainFormContent content={content} formState={this.state.content} changeHandler={this._changeHandler}/>
-                <ButtonList />
+                <ButtonList submitHandler={this._submitHandler}/>
                 <Footer footerText={footerText} />                
             </div>
         }else{
