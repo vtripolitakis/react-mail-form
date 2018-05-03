@@ -7,12 +7,16 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import ButtonList from "./components/ButtonList"
 import MainFormContent from "./components/MainFormContent"
+import Notification from "./components/Notification"
 
 export default class ReactMailForm extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             dataLoaded : false,
+            notificationVisible: false,
+            notificationClass: "",
+            notificationText: "",
             formConfiguration: null
         }
         this._changeHandler = this._changeHandler.bind(this)
@@ -59,9 +63,42 @@ export default class ReactMailForm extends React.Component{
                 })
                 .then((response)=>{
                     console.log(response.data)
+                    this.setState((previousState)=>{
+                        console.log(previousState)
+                        return {
+                            notificationVisible: true,
+                            notificationClass: previousState.formConfiguration.successMessageClass,
+                            notificationText: previousState.formConfiguration.successMessage,
+                        }
+                    })
+                    window.setTimeout(()=>{
+                        this.setState(()=>{
+                            return {
+                                notificationVisible: false,
+                                notificationClass: "",
+                                notificationText: "",
+                            }
+                        })
+                    },3500)
                 })
                 .catch((error)=>{
-                    console.log(error)
+                    this.setState((previousState)=>{
+                        console.log(previousState)
+                        return {
+                            notificationVisible: true,
+                            notificationClass: previousState.formConfiguration.errorMessageClass,
+                            notificationText: previousState.formConfiguration.errorMessage,
+                        }
+                    })
+                    window.setTimeout(()=>{
+                        this.setState(()=>{
+                            return {
+                                notificationVisible: false,
+                                notificationClass: "",
+                                notificationText: "",
+                            }
+                        })
+                    },3500)
                 })
         }else{
             document.querySelectorAll(`#${this.state.formConfiguration.formID} :invalid`)
@@ -122,6 +159,10 @@ export default class ReactMailForm extends React.Component{
                 <Header formTitle={formTitle}/>
                 <MainFormContent content={content} formState={this.state.content} formID={this.state.formConfiguration.formID} changeHandler={this._changeHandler}/>
                 <ButtonList submitHandler={this._submitHandler}/>
+                <Notification 
+                    visible={this.state.notificationVisible} 
+                    notificationClasses={this.state.notificationClass} 
+                    notificationText={this.state.notificationText}/>
                 <Footer footerText={footerText} />                
             </div>
         }else{

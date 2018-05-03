@@ -5,6 +5,10 @@
     "endpoint":"https://jsonplaceholder.typicode.com/posts",
     "formTitle": "this is the form title",
     "footerText": "this is the footer text",
+    "successMessage":"✔ Form submitted successfully",
+    "successMessageClass":"alert alert-success",
+    "errorMessage":"✘ Form submission failed",
+    "errorMessageClass":"alert alert-danger",
     "content":{
         "contact_reason":{
             "type":"checkbox_array",

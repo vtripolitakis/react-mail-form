@@ -21026,6 +21026,10 @@ var _MainFormContent = __webpack_require__(/*! ./components/MainFormContent */ "
 
 var _MainFormContent2 = _interopRequireDefault(_MainFormContent);
 
+var _Notification = __webpack_require__(/*! ./components/Notification */ "./src/components/Notification.js");
+
+var _Notification2 = _interopRequireDefault(_Notification);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21045,6 +21049,9 @@ var ReactMailForm = function (_React$Component) {
 
         _this.state = {
             dataLoaded: false,
+            notificationVisible: false,
+            notificationClass: "",
+            notificationText: "",
             formConfiguration: null
         };
         _this._changeHandler = _this._changeHandler.bind(_this);
@@ -21093,8 +21100,41 @@ var ReactMailForm = function (_React$Component) {
                     }
                 }).then(function (response) {
                     console.log(response.data);
+                    _this2.setState(function (previousState) {
+                        console.log(previousState);
+                        return {
+                            notificationVisible: true,
+                            notificationClass: previousState.formConfiguration.successMessageClass,
+                            notificationText: previousState.formConfiguration.successMessage
+                        };
+                    });
+                    window.setTimeout(function () {
+                        _this2.setState(function () {
+                            return {
+                                notificationVisible: false,
+                                notificationClass: "",
+                                notificationText: ""
+                            };
+                        });
+                    }, 3500);
                 }).catch(function (error) {
-                    console.log(error);
+                    _this2.setState(function (previousState) {
+                        console.log(previousState);
+                        return {
+                            notificationVisible: true,
+                            notificationClass: previousState.formConfiguration.errorMessageClass,
+                            notificationText: previousState.formConfiguration.errorMessage
+                        };
+                    });
+                    window.setTimeout(function () {
+                        _this2.setState(function () {
+                            return {
+                                notificationVisible: false,
+                                notificationClass: "",
+                                notificationText: ""
+                            };
+                        });
+                    }, 3500);
                 });
             } else {
                 document.querySelectorAll("#" + this.state.formConfiguration.formID + " :invalid").forEach(function (node) {
@@ -21161,6 +21201,10 @@ var ReactMailForm = function (_React$Component) {
                     _react2.default.createElement(_Header2.default, { formTitle: formTitle }),
                     _react2.default.createElement(_MainFormContent2.default, { content: content, formState: this.state.content, formID: this.state.formConfiguration.formID, changeHandler: this._changeHandler }),
                     _react2.default.createElement(_ButtonList2.default, { submitHandler: this._submitHandler }),
+                    _react2.default.createElement(_Notification2.default, {
+                        visible: this.state.notificationVisible,
+                        notificationClasses: this.state.notificationClass,
+                        notificationText: this.state.notificationText }),
                     _react2.default.createElement(_Footer2.default, { footerText: footerText })
                 );
             } else {
@@ -21495,6 +21539,70 @@ var MainFormContent = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = MainFormContent;
+
+/***/ }),
+
+/***/ "./src/components/Notification.js":
+/*!****************************************!*\
+  !*** ./src/components/Notification.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* jshint esversion: 6 */
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
+
+var Notification = function (_React$Component) {
+    _inherits(Notification, _React$Component);
+
+    function Notification(props) {
+        _classCallCheck(this, Notification);
+
+        return _possibleConstructorReturn(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).call(this, props));
+    }
+
+    _createClass(Notification, [{
+        key: "render",
+        value: function render() {
+            console.log(this.props);
+            if (!this.props.visible) {
+                return null;
+            }
+            return _react2.default.createElement(
+                "div",
+                { className: this.props.notificationClasses },
+                _react2.default.createElement(
+                    "strong",
+                    null,
+                    this.props.notificationText
+                )
+            );
+        }
+    }]);
+
+    return Notification;
+}(_react2.default.Component);
+
+exports.default = Notification;
 
 /***/ }),
 
