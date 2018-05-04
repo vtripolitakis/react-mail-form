@@ -21,6 +21,7 @@ export default class ReactMailForm extends React.Component{
         }
         this._changeHandler = this._changeHandler.bind(this)
         this._submitHandler = this._submitHandler.bind(this)
+        this._addElement = this._addElement.bind(this)
     }
     
     _changeHandler(i,type, e){
@@ -151,11 +152,37 @@ export default class ReactMailForm extends React.Component{
             })
     }
 
+    _addElement(){
+        console.log("button clicky")
+        //ToDo: be able to add elements of other types than text
+        this.setState((previousState)=>{
+            let newFormConfiguration = Object.assign({},previousState.formConfiguration)
+            let newContent = Object.assign({},previousState.content)
+            newFormConfiguration.content["test_element"]={
+                "type":"text",
+                "maxwidth": 30,
+                "btcolumns":6,
+                "default":"Test Element",
+                "required": true
+            }
+            newContent["test_element"]=""
+            return {
+                formConfiguration: newFormConfiguration,
+                content:newContent
+            }
+        })
+    }
+
     render(){
         let dataLoaded = this.state.dataLoaded
         if (dataLoaded){
             const {formTitle, footerText, content} = this.state.formConfiguration            
             return <div>
+                <button onClick={(e)=>{
+                    e.preventDefault()
+                    e.stopPropagation()                
+                    this._addElement()
+                }}>BTN</button>
                 <Header formTitle={formTitle}/>
                 <MainFormContent content={content} formState={this.state.content} formID={this.state.formConfiguration.formID} changeHandler={this._changeHandler}/>
                 <ButtonList submitHandler={this._submitHandler}/>

@@ -11,6 +11,7 @@ export default class MainFormContent extends React.Component{
     render(){
         let formData = null
         formData = Object.keys(this.props.content).map(i=>{
+            console.log(i)
             const objectData = this.props.content[i]
             const isRequired = objectData["required"]
             let outData = null

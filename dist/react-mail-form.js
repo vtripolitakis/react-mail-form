@@ -21056,6 +21056,7 @@ var ReactMailForm = function (_React$Component) {
         };
         _this._changeHandler = _this._changeHandler.bind(_this);
         _this._submitHandler = _this._submitHandler.bind(_this);
+        _this._addElement = _this._addElement.bind(_this);
         return _this;
     }
 
@@ -21186,8 +21187,32 @@ var ReactMailForm = function (_React$Component) {
             });
         }
     }, {
+        key: "_addElement",
+        value: function _addElement() {
+            console.log("button clicky");
+            //ToDo: be able to add elements of other types than text
+            this.setState(function (previousState) {
+                var newFormConfiguration = Object.assign({}, previousState.formConfiguration);
+                var newContent = Object.assign({}, previousState.content);
+                newFormConfiguration.content["test_element"] = {
+                    "type": "text",
+                    "maxwidth": 30,
+                    "btcolumns": 6,
+                    "default": "Test Element",
+                    "required": true
+                };
+                newContent["test_element"] = "";
+                return {
+                    formConfiguration: newFormConfiguration,
+                    content: newContent
+                };
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
+            var _this4 = this;
+
             var dataLoaded = this.state.dataLoaded;
             if (dataLoaded) {
                 var _state$formConfigurat = this.state.formConfiguration,
@@ -21198,6 +21223,15 @@ var ReactMailForm = function (_React$Component) {
                 return _react2.default.createElement(
                     "div",
                     null,
+                    _react2.default.createElement(
+                        "button",
+                        { onClick: function onClick(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                _this4._addElement();
+                            } },
+                        "BTN"
+                    ),
                     _react2.default.createElement(_Header2.default, { formTitle: formTitle }),
                     _react2.default.createElement(_MainFormContent2.default, { content: content, formState: this.state.content, formID: this.state.formConfiguration.formID, changeHandler: this._changeHandler }),
                     _react2.default.createElement(_ButtonList2.default, { submitHandler: this._submitHandler }),
@@ -21455,6 +21489,7 @@ var MainFormContent = function (_React$Component) {
 
             var formData = null;
             formData = Object.keys(this.props.content).map(function (i) {
+                console.log(i);
                 var objectData = _this2.props.content[i];
                 var isRequired = objectData["required"];
                 var outData = null;
