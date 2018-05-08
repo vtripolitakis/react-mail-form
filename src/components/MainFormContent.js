@@ -29,6 +29,17 @@ export default class MainFormContent extends React.Component{
                 })
                 outData = <div id={i}>{checkbox_array_data}</div>
                 break
+            case "select":
+                var select_data = objectData.options.map(j=>{
+                    return <option key={j}>{j}</option>
+                })
+                select_data.unshift(<option disabled={true} selected={true} key={"please select"} value={""}>Please Select</option>)
+                outData = <div id={i}>
+                    <select required={isRequired}
+                        onChange={e=>{
+                            this.props.changeHandler(i, "select", e.target.value)}}>{select_data}
+                    </select></div>
+                break    
             case "textarea":
                 outData = <div id={i}><textarea rows={objectData["rows"]} cols={objectData["cols"]} 
                     defaultValue={this.props.formState[i]}

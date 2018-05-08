@@ -24,6 +24,19 @@
             "default":["General", "Personal Consultation"],
             "required": true
         },
+        "country":{
+            "type":"select",
+            "options":["Greece",
+                        "USA",
+                        "Switzerland",
+                        "Germany",
+                        "UK",
+                        "France",
+                        "Spain",
+                        "Italy"],
+            "btcolumns":12,
+            "required": true
+        },
         "message":{
             "type":"textarea",
             "rows": 5,
@@ -60,12 +73,6 @@
         "city":{
             "type":"text",
             "maxwidth": 30,
-            "btcolumns":6,
-            "required": true
-        },
-        "country":{
-            "type":"text",
-            "maxwidth": 50,
             "btcolumns":6,
             "required": true
         },

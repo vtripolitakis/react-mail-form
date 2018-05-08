@@ -33,6 +33,9 @@ export default class ReactMailForm extends React.Component{
             case "textarea":
                 newState.content[i]=e
                 break
+            case "select":
+                newState.content[i]=e
+                break
             case "checkbox_array":
                 //check if it exists and delete otherwise add
                 var idx = newState.content[i].indexOf(e)
@@ -135,6 +138,10 @@ export default class ReactMailForm extends React.Component{
                         case "checkbox_array":
                             //check if it exists and delete otherwise add
                             content[c]=[]
+                            break
+                        case "select":
+                            content[c]=""
+                            break                        
                         }                        
                     }
                 })
