@@ -11,6 +11,7 @@
     "errorMessageClass":"alert alert-danger",
     "content":{
         "contact_reason":{
+            "label":"Contact Reason",
             "type":"checkbox_array",
             "options":["Option1",
                         "Option2",
@@ -25,6 +26,7 @@
             "required": true
         },
         "country":{
+            "label":"Country",
             "type":"select",
             "options":["Greece",
                         "USA",
@@ -38,6 +40,7 @@
             "required": true
         },
         "message":{
+            "label":"Message",
             "type":"textarea",
             "rows": 5,
             "cols": 60,
@@ -45,6 +48,7 @@
             "required": true
         },
         "name":{
+            "label":"Name",
             "type":"text",
             "maxwidth": 20,
             "btcolumns":6,
@@ -52,12 +56,14 @@
             "required": true
         },
         "surname":{
+            "label":"Surname",
             "type":"text",
             "maxwidth": 30,
             "btcolumns":6,
             "required": true
         },
         "address":{
+            "label":"Address",
             "type":"textarea",
             "rows": 5,
             "cols": 60,
@@ -65,45 +71,52 @@
             "required": true
         },
         "zipcode":{
+            "label":"ZIP",
             "type":"text",
             "maxwidth": 30,
             "btcolumns":6,
             "required": true
         },
         "city":{
+            "label":"City",
             "type":"text",
             "maxwidth": 30,
             "btcolumns":6,
             "required": true
         },
         "company":{
+            "label":"Company",
             "type":"text",
             "maxwidth": 50,
             "btcolumns":6,
             "required": false
         },
         "sector":{
+            "label":"Sector",
             "type":"text",
             "maxwidth": 50,
             "btcolumns":6,
             "required": false
         },
         "phone":{
+            "label":"Phone",
             "type":"text",
             "maxwidth": 20,
             "btcolumns":6,
             "required": false
         },
         "fax":{
+            "label":"Fax",
             "type":"text",
             "maxwidth": 20,
             "btcolumns":6,
             "required": false
         },
         "website":{
+            "label":"Website",
             "type":"text",
             "maxwidth": 50,
-            "btcolumns":6,
+            "btcolumns":12,
             "required": false
         }
         

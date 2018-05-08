@@ -59,8 +59,14 @@ export default class MainFormContent extends React.Component{
                 </div>                
                 break
             }
+            var label = ""
+            if (typeof this.props.content[i]["label"] === "undefined"){
+                label = i
+            }else{
+                label = this.props.content[i]["label"]
+            }
             return <div key={i} className={"form-group " + `col-md-${objectData["btcolumns"]}`}>
-                <label htmlFor={i}>{i} {(isRequired)?"*":""}</label>
+                <label htmlFor={i}>{label} {(isRequired)?"*":""}</label>
                 {outData}
             </div>
         })
