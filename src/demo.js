@@ -1,7 +1,7 @@
 /* jshint esversion: 6 */
 /* global formConfigurationURL */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
-
+import "babel-polyfill"
 import React from "react"
 import {render} from "react-dom"
 import ReactMailForm from "./ReactMailForm"
