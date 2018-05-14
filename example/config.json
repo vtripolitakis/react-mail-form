@@ -37,7 +37,8 @@
                         "Spain",
                         "Italy"],
             "btcolumns":12,
-            "required": true
+            "required": true,
+            "default": "Italy"
         },
         "message":{
             "label":"Message",
@@ -52,7 +53,7 @@
             "type":"text",
             "maxwidth": 20,
             "btcolumns":6,
-            "default":"Vaggelis",
+            "default":"MyFirstName",
             "required": true
         },
         "surname":{

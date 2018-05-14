@@ -30,10 +30,18 @@ export default class MainFormContent extends React.Component{
                 outData = <div id={i}>{checkbox_array_data}</div>
                 break
             case "select":
+                var currentOptionSelected = false
                 var select_data = objectData.options.map(j=>{
-                    return <option key={j}>{j}</option>
+                    if (typeof objectData.default !== "undefined"){
+                        if (objectData.default === j){
+                            currentOptionSelected = true
+                        }else{
+                            currentOptionSelected = false
+                        }
+                    }
+                    return <option key={j} selected={currentOptionSelected}>{j}</option>
                 })
-                select_data.unshift(<option disabled={true} selected={true} key={"please select"} value={""}>Please Select</option>)
+                select_data.unshift(<option disabled={true} selected={!currentOptionSelected} key={"please select"} value={""}>Please Select</option>)
                 outData = <div id={i}>
                     <select required={isRequired}
                         onChange={e=>{
