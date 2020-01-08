@@ -1,12 +1,13 @@
 /* jshint esversion: 6 */
 /* global formConfigurationURL */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
-import "babel-polyfill"
+import "@babel/polyfill"
 import React from "react"
 import {render} from "react-dom"
 import ReactMailForm from "./ReactMailForm"
 
-
+console.log(React.version)
+console.log('ALOHA')
 // Polyfill for reportValidity for IE
 /* Copyright (c) 2016 Tobias Buschor https://goo.gl/gl0mbf | MIT License https://goo.gl/HgajeK */
 
