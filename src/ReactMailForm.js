@@ -66,9 +66,9 @@ export default class ReactMailForm extends React.Component{
                     }
                 })
                 .then((response)=>{
-                    console.log(response.data)
+                    // console.log(response.data)
                     this.setState((previousState)=>{
-                        console.log(previousState)
+                        // console.log(previousState)
                         return {
                             notificationVisible: true,
                             notificationClass: previousState.formConfiguration.successMessageClass,
@@ -87,7 +87,7 @@ export default class ReactMailForm extends React.Component{
                 })
                 .catch((error)=>{
                     this.setState((previousState)=>{
-                        console.log(previousState)
+                        // console.log(previousState)
                         return {
                             notificationVisible: true,
                             notificationClass: previousState.formConfiguration.errorMessageClass,
@@ -155,7 +155,7 @@ export default class ReactMailForm extends React.Component{
                 })                
             })
             .catch(function (error) {
-                console.log("ERROR", error)
+                // console.log("ERROR", error)
             })
     }
 
