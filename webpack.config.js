@@ -2,7 +2,7 @@ const path = require('path');
 
 const config = {
   entry: {
-    all: './src/start.js',
+    all: './src/start.jsx',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -18,6 +18,10 @@ const config = {
         use: {
           loader: 'babel-loader',
         },
+      },
+      {
+        test: /\.(css)$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },

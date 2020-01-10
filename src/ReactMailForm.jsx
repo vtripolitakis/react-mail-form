@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ButtonList from './components/ButtonList';
 import MainFormContent from './components/MainFormContent';
-import Notification from './components/Notification';
+import 'react-toastify/dist/ReactToastify.css';
 
 require('es6-promise').polyfill();
 
@@ -14,9 +15,6 @@ export default class ReactMailForm extends React.Component {
     super(props);
     this.state = {
       dataLoaded: false,
-      notificationVisible: false,
-      notificationClass: '',
-      notificationText: '',
       formConfiguration: null,
     };
     this.changeHandler = this.changeHandler.bind(this);
@@ -113,33 +111,10 @@ export default class ReactMailForm extends React.Component {
         },
       )
         .then(() => {
-          // console.log(response.data)
-          this.setState((previousState) => ({
-            notificationVisible: true,
-            notificationClass: previousState.formConfiguration.successMessageClass,
-            notificationText: previousState.formConfiguration.successMessage,
-          }));
-          window.setTimeout(() => {
-            this.setState(() => ({
-              notificationVisible: false,
-              notificationClass: '',
-              notificationText: '',
-            }));
-          }, 3500);
+          toast('Success');
         })
         .catch(() => {
-          this.setState((previousState) => ({
-            notificationVisible: true,
-            notificationClass: previousState.formConfiguration.errorMessageClass,
-            notificationText: previousState.formConfiguration.errorMessage,
-          }));
-          window.setTimeout(() => {
-            this.setState(() => ({
-              notificationVisible: false,
-              notificationClass: '',
-              notificationText: '',
-            }));
-          }, 3500);
+          toast('Failure');
         });
     } else {
       document.querySelectorAll(`#${formID} :invalid`)
@@ -160,13 +135,13 @@ export default class ReactMailForm extends React.Component {
     if (dataLoaded) {
       const {
         content,
-        formConfiguration, notificationVisible,
-        notificationClass, notificationText,
+        formConfiguration,
       } = this.state;
       const { formID } = formConfiguration;
       const { formTitle, footerText, content: formContent } = formConfiguration;
       return (
         <div>
+          <ToastContainer />
           <Header formTitle={formTitle} />
           <MainFormContent
             content={formContent}
@@ -175,11 +150,6 @@ export default class ReactMailForm extends React.Component {
             changeHandler={this.changeHandler}
           />
           <ButtonList submitHandler={this.submitHandler} />
-          <Notification
-            visible={notificationVisible}
-            notificationClasses={notificationClass}
-            notificationText={notificationText}
-          />
           <Footer footerText={footerText} />
         </div>
       );
