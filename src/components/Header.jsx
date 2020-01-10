@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({ formTitle }) => (<div><h2>{formTitle}</h2></div>);
+const Header = ({ formTitle }) => (<div><h1>{formTitle}</h1></div>);
 
 Header.defaultProps = {
   formTitle: '',

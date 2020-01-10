@@ -13,7 +13,8 @@
   "contributors": [],
   "license": "MIT",
   "scripts": {
-    "start": "./node_modules/.bin/nodemon ./demo_start.js",
+    "start": "./node_modules/.bin/webpack-dev-server",
+    "start:dev": "./node_modules/.bin/webpack-dev-server --mode=development",
     "build": "./node_modules/.bin/webpack-cli",
     "watch": "./node_modules/.bin/webpack-cli -w &",
     "buildproduction": "./node_modules/.bin/webpack-cli -p",
@@ -63,10 +64,10 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "express": "^4.17.1",
     "jest": "^24.9.0",
-    "nodemon": "^2.0.2",
     "react-test-renderer": "^16.12.0",
     "style-loader": "^1.1.2",
     "webpack": "^4.41.0",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   }
 }

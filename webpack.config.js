@@ -2,11 +2,12 @@ const path = require('path');
 
 const config = {
   entry: {
-    all: './src/start.jsx',
+    all: './src/index.jsx',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'react-mail-form.js',
+    publicPath: '/',
   },
   devtool: 'source-map',
   mode: 'development',
