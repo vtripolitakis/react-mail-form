@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import loadable from '@loadable/component'
 import { ToastContainer, toast } from 'react-toastify';
+import { css } from 'glamor';
 import 'react-toastify/dist/ReactToastify.css';
 
 require('es6-promise').polyfill();
@@ -99,7 +100,7 @@ export default class ReactMailForm extends React.Component {
     e.preventDefault();
     e.stopPropagation();
     const { formConfiguration, content } = this.state;
-    const { formID, endpoint } = formConfiguration;
+    const { formID, endpoint, successMessage, errorMessage } = formConfiguration;
     // perform some basic validation
     if (document.getElementById(formID).reportValidity()) {
       axios.post(
@@ -112,10 +113,28 @@ export default class ReactMailForm extends React.Component {
         },
       )
         .then(() => {
-          toast('Success');
+          toast(successMessage, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 5000,
+            bodyClassName: css({
+              fontSize: '2.0rem !important'
+            }),
+            progressClassName: css({
+              background: 'green !important'
+            })
+          });
         })
         .catch(() => {
-          toast('Failure');
+          toast(errorMessage, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 5000,
+            bodyClassName: css({
+              fontSize: '2.0rem !important'
+            }),
+            progressClassName: css({
+              background: 'red !important'
+            })
+          });
         });
     } else {
       document.querySelectorAll(`#${formID} :invalid`)
