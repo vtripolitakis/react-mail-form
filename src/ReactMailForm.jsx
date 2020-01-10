@@ -6,6 +6,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 require('es6-promise').polyfill();
+const MainFormContent = loadable(() => import('./components/MainFormContent'))
+const Header = loadable(() => import('./components/Header'))
+const Footer = loadable(() => import('./components/Footer'))
+const ButtonList = loadable(() => import('./components/ButtonList'))
 
 export default class ReactMailForm extends React.Component {
   constructor(props) {
@@ -136,10 +140,6 @@ export default class ReactMailForm extends React.Component {
       } = this.state;
       const { formID } = formConfiguration;
       const { formTitle, footerText, content: formContent } = formConfiguration;
-      const Header = loadable(() => import('./components/Header'))
-      const Footer = loadable(() => import('./components/Footer'))
-      const MainFormContent = loadable(() => import('./components/MainFormContent'))
-      const ButtonList = loadable(() => import('./components/ButtonList'))
       return (
         <div>
           <ToastContainer />

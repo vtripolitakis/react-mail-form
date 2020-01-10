@@ -7,7 +7,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'react-mail-form.js',
-    publicPath: '/',
+    publicPath: '/assets/static/js/react-mail-form/',
   },
   devtool: 'source-map',
   mode: 'development',

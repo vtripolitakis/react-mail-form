@@ -1,5 +1,4 @@
-// import '@babel/polyfill';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import loadable from '@loadable/component'
 // Polyfill for reportValidity for IE
