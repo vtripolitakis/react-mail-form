@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import loadable from '@loadable/component'
 import { ToastContainer, toast } from 'react-toastify';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import ButtonList from './components/ButtonList';
-import MainFormContent from './components/MainFormContent';
 import 'react-toastify/dist/ReactToastify.css';
 
 require('es6-promise').polyfill();
@@ -139,18 +136,22 @@ export default class ReactMailForm extends React.Component {
       } = this.state;
       const { formID } = formConfiguration;
       const { formTitle, footerText, content: formContent } = formConfiguration;
+      const Header = loadable(() => import('./components/Header'))
+      const Footer = loadable(() => import('./components/Footer'))
+      const MainFormContent = loadable(() => import('./components/MainFormContent'))
+      const ButtonList = loadable(() => import('./components/ButtonList'))
       return (
         <div>
           <ToastContainer />
           <Header formTitle={formTitle} />
           <MainFormContent
-            content={formContent}
-            formState={content}
-            formID={formID}
-            changeHandler={this.changeHandler}
+              content={formContent}
+              formState={content}
+              formID={formID}
+              changeHandler={this.changeHandler}
           />
           <ButtonList submitHandler={this.submitHandler} />
-          <Footer footerText={footerText} />
+          <Footer footerText={footerText} />          
         </div>
       );
     }

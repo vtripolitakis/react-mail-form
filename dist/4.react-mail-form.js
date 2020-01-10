@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{56:function(e,t,n){"use strict";n.r(t);var o=n(0),r=n.n(o),a=n(18),p=n.n(a),u=function(e){var t=e.footerText;return r.a.createElement("div",null,r.a.createElement("p",null,t))};u.defaultProps={footerText:""},u.propTypes={footerText:p.a.string},t.default=u}}]);
+//# sourceMappingURL=4.react-mail-form.js.map

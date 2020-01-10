@@ -9,7 +9,8 @@ module.exports = {
             "experimentalObjectRestSpread": true,
             "jsx": true
         },
-        "sourceType": "module"
+        "sourceType": "module",
+        "allowImportExportEverywhere": true
     },
     "plugins": [
         "react"
