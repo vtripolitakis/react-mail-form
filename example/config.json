@@ -22,7 +22,7 @@
                         "Option7",
                         "Option8"],
             "btcolumns":12,
-            "default":["General", "Personal Consultation"],
+            "default":[],
             "required": true
         },
         "country":{
