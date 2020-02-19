@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{58:function(t,n,e){"use strict";e.r(n);var a=e(0),u=e.n(a),c=e(18),l=e.n(c),b=function(t){var n=t.submitHandler;return u.a.createElement("div",null,u.a.createElement("button",{type:"button",className:"btn btn-default",onClick:n},"Submit")," ",u.a.createElement("button",{type:"button",className:"btn btn-cancel"},"Cancel"))};b.defaultProps={submitHandler:function(){}},b.propTypes={submitHandler:l.a.func},n.default=b}}]);
-//# sourceMappingURL=3.react-mail-form.js.map

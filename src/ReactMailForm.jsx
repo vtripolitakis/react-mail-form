@@ -1,16 +1,15 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import loadable from '@loadable/component'
 import { ToastContainer, toast } from 'react-toastify';
 import { css } from 'glamor';
 import 'react-toastify/dist/ReactToastify.css';
+import MainFormContent from './components/MainFormContent';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import ButtonList from './components/ButtonList';
 
 require('es6-promise').polyfill();
-const MainFormContent = loadable(() => import('./components/MainFormContent'))
-const Header = loadable(() => import('./components/Header'))
-const Footer = loadable(() => import('./components/Footer'))
-const ButtonList = loadable(() => import('./components/ButtonList'))
 
 export default class ReactMailForm extends React.Component {
   constructor(props) {
@@ -100,7 +99,9 @@ export default class ReactMailForm extends React.Component {
     e.preventDefault();
     e.stopPropagation();
     const { formConfiguration, content } = this.state;
-    const { formID, endpoint, successMessage, errorMessage } = formConfiguration;
+    const {
+      formID, endpoint, successMessage, errorMessage,
+    } = formConfiguration;
     // perform some basic validation
     if (document.getElementById(formID).reportValidity()) {
       axios.post(
@@ -117,11 +118,11 @@ export default class ReactMailForm extends React.Component {
             position: toast.POSITION.BOTTOM_RIGHT,
             autoClose: 5000,
             bodyClassName: css({
-              fontSize: '2.0rem !important'
+              fontSize: '2.0rem !important',
             }),
             progressClassName: css({
-              background: 'green !important'
-            })
+              background: 'green !important',
+            }),
           });
         })
         .catch(() => {
@@ -129,11 +130,11 @@ export default class ReactMailForm extends React.Component {
             position: toast.POSITION.BOTTOM_RIGHT,
             autoClose: 5000,
             bodyClassName: css({
-              fontSize: '2.0rem !important'
+              fontSize: '2.0rem !important',
             }),
             progressClassName: css({
-              background: 'red !important'
-            })
+              background: 'red !important',
+            }),
           });
         });
     } else {
@@ -164,13 +165,13 @@ export default class ReactMailForm extends React.Component {
           <ToastContainer />
           <Header formTitle={formTitle} />
           <MainFormContent
-              content={formContent}
-              formState={content}
-              formID={formID}
-              changeHandler={this.changeHandler}
+            content={formContent}
+            formState={content}
+            formID={formID}
+            changeHandler={this.changeHandler}
           />
           <ButtonList submitHandler={this.submitHandler} />
-          <Footer footerText={footerText} />          
+          <Footer footerText={footerText} />
         </div>
       );
     }
